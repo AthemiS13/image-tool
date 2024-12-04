@@ -25,8 +25,8 @@ Python 3.7 and above
 
 ## Installation
 ### Step 1: Install Python
-Ensure Python 3.7 or higher is installed on your system. Download Python from the official Python website.
-
+Ensure Python 3.7 or higher is installed on your system or download Python from the official Python website. [https://www.python.org/downloads/](https://www.python.org/downloads/)
+ 
 ### Step 2: Install Required Libraries
 Install the required libraries using pip:
 
@@ -59,8 +59,11 @@ Navigate to the directory containing the script and run it:
 ```python image-tool.py```
 
 Select Input: Use the graphical file dialog to choose a folder or ZIP file.
+
 Set Dimensions: Enter the desired width and height for resizing.
+
 Set Base Name: Provide a base name for renaming the images.
+
 ## Output
 Resized Images: Saved in a resized_images folder within the selected directory.
 ZIP Files: Automatically extracted, processed, and deleted. Images from the ZIP are saved in the same directory.
