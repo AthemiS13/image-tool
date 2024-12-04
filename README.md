@@ -46,7 +46,7 @@ If you are using Linux, you may need to install tkinter manually if it is not pr
 
 ```sudo dnf install python3-tkinter```
 
-### On Windows/macOS, tkinter should be installed with Python by default. If it is missing, reinstall Python and ensure the tkinter option is selected or use the command.
+On Windows/macOS, tkinter should be installed with Python by default. If it is missing, reinstall Python and ensure the tkinter option is selected or use the command.
 
 ### Step 3: Clone or Download the Repository
 Clone the repository using git:
