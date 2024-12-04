@@ -17,10 +17,9 @@ macOS
 Supported Python Versions
 Python 3.7 and above
 ### Necessary Libraries
-The script requires the following Python libraries:
 
-Pillow: For image processing.
-tkinter: For folder and file selection dialogs.
+#### Pillow: For image processing.
+#### tkinter: For folder and file selection dialogs.
 ## Installation
 ### Step 1: Install Python
 Ensure Python 3.7 or higher is installed on your system. Download Python from the official Python website.
