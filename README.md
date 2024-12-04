@@ -11,17 +11,18 @@ Batch Renaming: Renames images with a common base name and four-digit sequential
 Cross-Platform Compatibility: Works on Windows, macOS, and Linux.
 ## Requirements
 ### Supported Operating Systems
-Windows (7, 10, 11)
+-Windows (7, 10, 11)
 
-Linux (any distribution supporting Python)
+-Linux (any distribution supporting Python)
 
-macOS
-Supported Python Versions
+-macOS
+### Supported Python Versions
 Python 3.7 and above
 ### Necessary Libraries
 
 #### Pillow: For image processing.
 #### tkinter: For folder and file selection dialogs.
+
 ## Installation
 ### Step 1: Install Python
 Ensure Python 3.7 or higher is installed on your system. Download Python from the official Python website.
@@ -30,20 +31,23 @@ Ensure Python 3.7 or higher is installed on your system. Download Python from th
 Install the required libraries using pip:
 
 pip install pillow tk
+
 If you are using Linux, you may need to install tkinter manually if it is not pre-installed. Use the following commands depending on your distribution:
 
 ### On Ubuntu/Debian-based systems:
 
 sudo apt-get install python3-tk
+
 ###On Fedora/RHEL-based systems:
 
 sudo dnf install python3-tkinter
-### On Windows/macOS, tkinter should be installed with Python by default. If it is missing, reinstall Python and ensure the tkinter option is selected.
+
+### On Windows/macOS, tkinter should be installed with Python by default. If it is missing, reinstall Python and ensure the tkinter option is selected or use the command.
 
 ### Step 3: Clone or Download the Repository
 Clone the repository using git:
 
-git clone https://github.com/your-username/image-tool.git
+git clone shttps://github.com/AthemiS13/image-tool
 Or download the repository as a ZIP file and extract it.
 
 ## Usage
