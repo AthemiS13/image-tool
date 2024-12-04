@@ -51,9 +51,12 @@ git clone shttps://github.com/AthemiS13/image-tool
 Or download the repository as a ZIP file and extract it.
 
 ## Usage
-Running the Tool
+
+### Running the Tool
+
 Navigate to the directory containing the script and run it:
 
+```bash
 python image-tool.py
 Steps in the Script
 Select Input: Use the graphical file dialog to choose a folder or ZIP file.
