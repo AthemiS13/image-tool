@@ -12,7 +12,9 @@ Cross-Platform Compatibility: Works on Windows, macOS, and Linux.
 ## Requirements
 ### Supported Operating Systems
 Windows (7, 10, 11)
+
 Linux (any distribution supporting Python)
+
 macOS
 Supported Python Versions
 Python 3.7 and above
