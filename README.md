@@ -38,7 +38,7 @@ If you are using Linux, you may need to install tkinter manually if it is not pr
 
 sudo apt-get install python3-tk
 
-###On Fedora/RHEL-based systems:
+### On Fedora/RHEL-based systems:
 
 sudo dnf install python3-tkinter
 
