@@ -30,24 +30,24 @@ Ensure Python 3.7 or higher is installed on your system. Download Python from th
 ### Step 2: Install Required Libraries
 Install the required libraries using pip:
 
-pip install pillow tk
+```pip install pillow tk```
 
 If you are using Linux, you may need to install tkinter manually if it is not pre-installed. Use the following commands depending on your distribution:
 
 ### On Ubuntu/Debian-based systems:
 
-sudo apt-get install python3-tk
+```sudo apt-get install python3-tk```
 
 ### On Fedora/RHEL-based systems:
 
-sudo dnf install python3-tkinter
+```sudo dnf install python3-tkinter```
 
 ### On Windows/macOS, tkinter should be installed with Python by default. If it is missing, reinstall Python and ensure the tkinter option is selected or use the command.
 
 ### Step 3: Clone or Download the Repository
 Clone the repository using git:
 
-git clone shttps://github.com/AthemiS13/image-tool
+```git clone shttps://github.com/AthemiS13/image-tool```
 Or download the repository as a ZIP file and extract it.
 
 ## Usage
@@ -56,9 +56,8 @@ Or download the repository as a ZIP file and extract it.
 
 Navigate to the directory containing the script and run it:
 
-```bash
-python image-tool.py
-Steps in the Script
+```python image-tool.py```
+
 Select Input: Use the graphical file dialog to choose a folder or ZIP file.
 Set Dimensions: Enter the desired width and height for resizing.
 Set Base Name: Provide a base name for renaming the images.
