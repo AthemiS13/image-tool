@@ -5,9 +5,13 @@ Additionally, it handles ZIP files by extracting their contents, processing the 
 
 ## Features
 ZIP File Handling: Automatically extracts ZIP archives, processes their images, and deletes the ZIP after extraction.
+
 Folder Support: Processes images in folders and subfolders recursively.
+
 Customizable Resizing: Allows users to specify width and height for resizing.
+
 Batch Renaming: Renames images with a common base name and four-digit sequential numbers.
+
 Cross-Platform Compatibility: Works on Windows, macOS, and Linux.
 ## Requirements
 ### Supported Operating Systems
