@@ -13,54 +13,58 @@ def extract_zip_file(zip_path, destination_folder):
     except Exception as e:
         print(f"Error extracting ZIP file {zip_path}: {e}")
 
-def resize_images(folder_path, target_dimension, resize_by, base_name):
+def resize_images_recursively(folder_path, target_dimension, resize_by, base_name):
     # Ensure the target folder exists
     output_folder = os.path.join(folder_path, "resized_images")
     os.makedirs(output_folder, exist_ok=True)
 
-    image_counter = 1  # Initialize the image counter
+    image_counter = 1
 
-    # Only process images directly in the selected folder, not in subdirectories
-    for filename in os.listdir(folder_path):
-        file_path = os.path.join(folder_path, filename)
-
-        # Skip non-image files and files in subdirectories
-        if os.path.isdir(file_path) or not filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+    for root, _, files in os.walk(folder_path):
+        # Skip the 'resized_images' folder to prevent processing resized images
+        if os.path.basename(root) == "resized_images":
             continue
 
-        try:
-            with Image.open(file_path) as img:
-                original_width, original_height = img.size
+        for filename in files:
+            file_path = os.path.join(root, filename)
 
-                if resize_by == "width":
-                    # Calculate the height based on the aspect ratio
-                    aspect_ratio = original_height / original_width
-                    target_height = int(target_dimension * aspect_ratio)
-                    target_size = (target_dimension, target_height)
-                elif resize_by == "height":
-                    # Calculate the width based on the aspect ratio
-                    aspect_ratio = original_width / original_height
-                    target_width = int(target_dimension * aspect_ratio)
-                    target_size = (target_width, target_dimension)
-                else:
-                    print("Invalid resize choice. Exiting.")
-                    return
+            # Skip non-image files
+            if not filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+                continue
 
-                # Resize the image using LANCZOS resampling
-                resized_img = img.resize(target_size, Image.Resampling.LANCZOS)
+            try:
+                with Image.open(file_path) as img:
+                    original_width, original_height = img.size
+                    
+                    if resize_by == "width":
+                        # Calculate the height based on the aspect ratio
+                        aspect_ratio = original_height / original_width
+                        target_height = int(target_dimension * aspect_ratio)
+                        target_size = (target_dimension, target_height)
+                    elif resize_by == "height":
+                        # Calculate the width based on the aspect ratio
+                        aspect_ratio = original_width / original_height
+                        target_width = int(target_dimension * aspect_ratio)
+                        target_size = (target_width, target_dimension)
+                    else:
+                        print("Invalid resize choice. Exiting.")
+                        return
 
-                # Generate a new name with base name and four-digit counter
-                new_name = f"{base_name}_{image_counter:04d}{os.path.splitext(filename)[1]}"
-                output_path = os.path.join(output_folder, new_name)
+                    # Resize the image using LANCZOS resampling
+                    resized_img = img.resize(target_size, Image.Resampling.LANCZOS)
 
-                # Save the resized and renamed image
-                resized_img.save(output_path)
-                print(f"Resized and renamed: {output_path}")
+                    # Generate a new name with base name and four-digit counter
+                    new_name = f"{base_name}_{image_counter:04d}{os.path.splitext(filename)[1]}"
+                    output_path = os.path.join(output_folder, new_name)
 
-                image_counter += 1  # Increment only once per image processed
+                    # Save the resized and renamed image
+                    resized_img.save(output_path)
+                    print(f"{image_counter:04d}: {filename} -> {new_name}")
 
-        except Exception as e:
-            print(f"Error processing file {filename}: {e}")
+                    # Increment the counter after saving a file
+                    image_counter += 1
+            except Exception as e:
+                print(f"Error processing file {filename}: {e}")
 
 def main():
     # Ask the user if they want to select a folder or a ZIP file
@@ -111,7 +115,7 @@ def main():
     # Get the base name for renaming images
     base_name = input("Enter the base name for the images: ")
 
-    resize_images(folder_path, target_dimension, resize_by, base_name)
+    resize_images_recursively(folder_path, target_dimension, resize_by, base_name)
     print(f"All images resized and renamed. Check the folder '{os.path.join(folder_path, 'resized_images')}'.")
 
 if __name__ == "__main__":
