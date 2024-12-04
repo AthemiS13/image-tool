@@ -13,7 +13,7 @@ def extract_zip_file(zip_path, destination_folder):
     except Exception as e:
         print(f"Error extracting ZIP file {zip_path}: {e}")
 
-def resize_images_recursively(folder_path, target_width, target_height, base_name):
+def resize_images_recursively(folder_path, target_dimension, resize_by, base_name):
     # Ensure the target folder exists
     output_folder = os.path.join(folder_path, "resized_images")
     os.makedirs(output_folder, exist_ok=True)
@@ -31,8 +31,24 @@ def resize_images_recursively(folder_path, target_width, target_height, base_nam
 
             try:
                 with Image.open(file_path) as img:
+                    original_width, original_height = img.size
+                    
+                    if resize_by == "width":
+                        # Calculate the height based on the aspect ratio
+                        aspect_ratio = original_height / original_width
+                        target_height = int(target_dimension * aspect_ratio)
+                        target_size = (target_dimension, target_height)
+                    elif resize_by == "height":
+                        # Calculate the width based on the aspect ratio
+                        aspect_ratio = original_width / original_height
+                        target_width = int(target_dimension * aspect_ratio)
+                        target_size = (target_width, target_dimension)
+                    else:
+                        print("Invalid resize choice. Exiting.")
+                        return
+
                     # Resize the image using LANCZOS resampling
-                    resized_img = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
+                    resized_img = img.resize(target_size, Image.Resampling.LANCZOS)
 
                     # Generate a new name with base name and four-digit counter
                     new_name = f"{base_name}_{image_counter:04d}{os.path.splitext(filename)[1]}"
@@ -71,18 +87,31 @@ def main():
         print("No folder or ZIP file selected. Exiting.")
         return
 
+    # Prompt whether the user wants to resize by width or height
+    print("Choose how you want to resize:")
+    print("1. Specify width")
+    print("2. Specify height")
+    resize_choice = input("Enter your choice (1 or 2): ")
+
+    if resize_choice == "1":
+        resize_by = "width"
+    elif resize_choice == "2":
+        resize_by = "height"
+    else:
+        print("Invalid choice. Exiting.")
+        return
+
     # Get the target resolution from the user
     try:
-        target_width = int(input("Enter the target width: "))
-        target_height = int(input("Enter the target height: "))
+        target_dimension = int(input(f"Enter the target {resize_by}: "))
     except ValueError:
-        print("Invalid input. Please enter valid integers for width and height.")
+        print("Invalid input. Please enter a valid integer for the dimension.")
         return
 
     # Get the base name for renaming images
     base_name = input("Enter the base name for the images: ")
 
-    resize_images_recursively(folder_path, target_width, target_height, base_name)
+    resize_images_recursively(folder_path, target_dimension, resize_by, base_name)
     print(f"All images resized and renamed. Check the folder '{os.path.join(folder_path, 'resized_images')}'.")
 
 if __name__ == "__main__":
