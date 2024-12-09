@@ -51,7 +51,7 @@ On Windows/macOS, tkinter should be installed with Python by default. If it is m
 ### Step 3: Clone or Download the Repository
 Clone the repository using git:
 
-```git clone shttps://github.com/AthemiS13/image-tool```
+```git clone https://github.com/AthemiS13/image-tool```
 Or download the repository as a ZIP file and extract it.
 
 ## Usage
