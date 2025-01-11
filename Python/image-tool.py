@@ -14,21 +14,18 @@ def extract_zip_file(zip_path, destination_folder):
         print(f"Error extracting ZIP file {zip_path}: {e}")
 
 def resize_images_recursively(folder_path, target_dimension, resize_by, base_name):
-    # Ensure the target folder exists
     output_folder = os.path.join(folder_path, "resized_images")
     os.makedirs(output_folder, exist_ok=True)
 
     image_counter = 1
 
     for root, _, files in os.walk(folder_path):
-        # Skip the 'resized_images' folder to prevent processing resized images
         if os.path.basename(root) == "resized_images":
             continue
 
         for filename in files:
             file_path = os.path.join(root, filename)
 
-            # Skip non-image files
             if not filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
                 continue
 
@@ -37,12 +34,10 @@ def resize_images_recursively(folder_path, target_dimension, resize_by, base_nam
                     original_width, original_height = img.size
                     
                     if resize_by == "width":
-                        # Calculate the height based on the aspect ratio
                         aspect_ratio = original_height / original_width
                         target_height = int(target_dimension * aspect_ratio)
                         target_size = (target_dimension, target_height)
                     elif resize_by == "height":
-                        # Calculate the width based on the aspect ratio
                         aspect_ratio = original_width / original_height
                         target_width = int(target_dimension * aspect_ratio)
                         target_size = (target_width, target_dimension)
@@ -50,14 +45,11 @@ def resize_images_recursively(folder_path, target_dimension, resize_by, base_nam
                         print("Invalid resize choice. Exiting.")
                         return
 
-                    # Resize the image using LANCZOS resampling
                     resized_img = img.resize(target_size, Image.Resampling.LANCZOS)
 
-                    # Generate a new name with base name and four-digit counter
                     new_name = f"{base_name}_{image_counter:04d}{os.path.splitext(filename)[1]}"
                     output_path = os.path.join(output_folder, new_name)
 
-                    # Save the resized and renamed image
                     resized_img.save(output_path)
                     print(f"{image_counter:04d}: {filename} -> {new_name}")
 
@@ -67,8 +59,7 @@ def resize_images_recursively(folder_path, target_dimension, resize_by, base_nam
                 print(f"Error processing file {filename}: {e}")
 
 def main():
-    # Ask the user if they want to select a folder or a ZIP file
-    Tk().withdraw()  # Hide the root Tkinter window
+    Tk().withdraw()  
     print("Choose input type:")
     print("1. Folder")
     print("2. ZIP File")
@@ -80,7 +71,7 @@ def main():
     elif choice == "2":
         zip_path = filedialog.askopenfilename(title="Select a ZIP File", filetypes=[("ZIP files", "*.zip")])
         if zip_path:
-            folder_path = os.path.splitext(zip_path)[0]  # Remove .zip extension for the folder name
+            folder_path = os.path.splitext(zip_path)[0]  
             os.makedirs(folder_path, exist_ok=True)
             extract_zip_file(zip_path, folder_path)
     else:
@@ -91,7 +82,7 @@ def main():
         print("No folder or ZIP file selected. Exiting.")
         return
 
-    # Prompt whether the user wants to resize by width or height
+
     print("Choose how you want to resize:")
     print("1. Specify width")
     print("2. Specify height")
@@ -105,14 +96,13 @@ def main():
         print("Invalid choice. Exiting.")
         return
 
-    # Get the target resolution from the user
+
     try:
         target_dimension = int(input(f"Enter the target {resize_by}: "))
     except ValueError:
         print("Invalid input. Please enter a valid integer for the dimension.")
         return
 
-    # Get the base name for renaming images
     base_name = input("Enter the base name for the images: ")
 
     resize_images_recursively(folder_path, target_dimension, resize_by, base_name)
